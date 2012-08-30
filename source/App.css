@@ -3,8 +3,13 @@
 	This way, you can minify your application, and just remove the "source" folder for production
 */
 #app {
-	margin: 16px;
-	border-radius: 4px;
-	background-color: silver;
-	padding: 16px;
+	background-color: #c6c6c6;
+}
+
+.center {
+	text-align: center;
+}
+
+.inputDecorator {
+	width: 80%;
 }

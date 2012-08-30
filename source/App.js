@@ -1,24 +1,29 @@
 enyo.kind({
 	name: "App",
-	kind: enyo.Control,
+	kind: enyo.FittableRows,
 	style: "",
 	classes: "onyx",
 	components: [
-		{kind: "onyx.InputDecorator", components: [
-			{kind: "onyx.Input", name: "sumControl", placeholder: "Enter sum"}
+		{kind: "onyx.Toolbar", classes: 'center', content: 'Tip calculator'},
+		{kind: enyo.Scroller, classes: 'center', fit: true, components: [
+			{kind: "onyx.InputDecorator", classes: "inputDecorator", style: "margin-top: 50px;", components: [
+				{kind: "onyx.Input", classes: "center", name: "sumControl", placeholder: "Enter sum"}
+			]},
+			{kind: "onyx.InputDecorator", classes: "inputDecorator", components: [
+				{kind: "onyx.Input", classes: "center", name: "percentControl", placeholder: "Enter percent"}
+			]},
+			{tag: "div", name: "tipAmount"}
 		]},
-		{kind: "onyx.InputDecorator", components: [
-			{kind: "onyx.Input", name: "percentControl", placeholder: "Enter percent"}
+		{kind: "onyx.Toolbar", style: 'text-align: right;', components: [
+			{kind: "onyx.Button", content: "Calculate tip", ontap: "calculateWithComponent"}
 		]},
-		{kind: "onyx.Button", content: "Calculate tip", ontap: "calculateWithComponent"},
-		{tag: "div", name: "tipAmount"},
 		{kind: "PercentCalculator", name: "percentCalculator", onCalculated: "updateControls"}
 	],
 	create: function() {
 		this.inherited(arguments);
 	},
 	updateControls: function(inSource, inEvent) {
-		this.$.tipAmount.setContent(inEvent.percentValue);
+		this.$.tipAmount.setContent("The tip is: " + inEvent.percentValue);
 
 		return true; // stop bubbling
 	},

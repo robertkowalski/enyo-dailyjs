@@ -10,19 +10,25 @@ enyo.kind({
 		{kind: "onyx.InputDecorator", components: [
 			{kind: "onyx.Input", name: "percentControl", placeholder: "Enter percent"}
 		]},
-		{kind: "onyx.Button", content: "Calculate tip", ontap: "calculate"},
-		{tag: "div", name: "tipAmount"}
+		{kind: "onyx.Button", content: "Calculate tip", ontap: "calculateWithComponent"},
+		{tag: "div", name: "tipAmount"},
+		{kind: "PercentCalculator", name: "percentCalculator", onCalculated: "updateControls"}
 	],
 	create: function() {
 		this.inherited(arguments);
 	},
-	calculate: function(inSource, inEvent) {
+	updateControls: function(inSource, inEvent) {
+		this.$.tipAmount.setContent(inEvent.percentValue);
+
+		return true; // stop bubbling
+	},
+	calculateWithComponent: function(inSource, inEvent) {
 		var sum = this.$.sumControl.hasNode().value;
 		var percent = this.$.percentControl.hasNode().value;
 
-		var result = (sum * percent) / 100;
-		this.$.tipAmount.setContent(result);
+		this.$.percentCalculator.setSum(sum);
+		this.$.percentCalculator.setPercent(percent);
 
-		return true; // stop bubbling
+		this.$.percentCalculator.calculate();
 	}
 });

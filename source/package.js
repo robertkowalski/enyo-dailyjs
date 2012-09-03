@@ -2,5 +2,6 @@ enyo.depends(
 	"$lib/layout",
 	"$lib/onyx",
 	"App.css",
-	"App.js"
+	"App.js",
+	"calc.percent.js"
 );
